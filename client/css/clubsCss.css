@@ -1,0 +1,24 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#clubList {
+    width: 40vw;
+}
+
+.logo {
+    /* width: 100px; */
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.clubBox {
+    width: auto;
+    padding: 20px;
+    box-shadow: 0 0 16px rgb(38, 0, 255);
+    background-color: rgba(223, 215, 215, 0.233);
+    margin-bottom: 30px;
+}
