@@ -15,6 +15,6 @@ app.use(express.static(path.join(__dirname, "public")));
 originAllow(app);
 routesInit(app);
 
-let port = process.env.PORT || "3000";
+let port = process.env.PORT || "3001";
 const server = http.createServer(app);
 server.listen(port);

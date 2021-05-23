@@ -30,13 +30,53 @@ router.get('/', async (req, res) => {
 //Info
 router.get('/info', async (req, res) => {
     let page = req.query.page ? Number(req.query.page) : 0;
-    let perPage = req.query.perPage ? Number(req.query.perPage) : 5;
-    let clubs = await ClubModel.find({})
+    let perPage = req.query.perPage ? Number(req.query.perPage) : 2;
+    let searchQ = req.query.s ? req.query.s : "";
+    let sortBy = req.query.sort ? req.query.sort : "name";
+    let regSearchQ = RegExp(searchQ, "i");
+    let clubsLength;
+    if (searchQ.length > 0) {
+        clubsLength = await ClubModel.countDocuments({
+            $or: [{
+                    name: regSearchQ
+                },
+                {
+                    org: regSearchQ
+                },
+                {
+                    location: regSearchQ
+                }
+            ]
+        });
+    } else {
+        clubsLength = await ClubModel.countDocuments({});
+    }
+    let clubs = await ClubModel.find({
+            $or: [{
+                    name: regSearchQ
+                },
+                {
+                    org: regSearchQ
+                },
+                {
+                    location: regSearchQ
+                }
+            ]
+        })
         .limit(perPage)
         .skip(page * perPage)
-    res.json(clubs);
+        .sort({[sortBy] : 1})
+    res.json({
+        clubs: clubs,
+        clubsLength: clubsLength
+    });
 })
 
+//Return All The Db For Pagination
+// router.get('/paginationInfo', async (req, res) => {
+//     let clubs = await ClubModel.countDocuments({});
+//     res.json(clubs);
+// })
 
 //Single Club
 router.get('/single/:id', async (req, res) => {

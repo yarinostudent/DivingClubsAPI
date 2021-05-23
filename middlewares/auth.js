@@ -16,7 +16,7 @@ exports.auth = (req, res, next) => {
     } catch (err) {
         console.log(err);
         res.status(400).json({
-            msg: "Invalid Token Or Expired"
+            msg: "Session Expired, Please Log In Again."
         });
     }
 }
