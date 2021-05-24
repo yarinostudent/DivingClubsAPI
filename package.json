@@ -1,9 +1,13 @@
 {
   "name": "DivingClubsAPI",
   "version": "1.0.0",
-  "description": "",
+  "engines": {
+    "node": "15.x",
+    "npm": "7.x"
+  },
+  "description": "diving club api",
   "scripts": {
-    "start":"node app",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
