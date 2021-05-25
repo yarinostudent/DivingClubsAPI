@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 //Info
 router.get('/info', async (req, res) => {
     let page = req.query.page ? Number(req.query.page) : 0;
-    let perPage = req.query.perPage ? Number(req.query.perPage) : 2;
+    let perPage = req.query.perPage ? Number(req.query.perPage) : 4;
     let searchQ = req.query.s ? req.query.s : "";
     let sortBy = req.query.sort ? req.query.sort : "name";
     let regSearchQ = RegExp(searchQ, "i");
@@ -65,7 +65,9 @@ router.get('/info', async (req, res) => {
         })
         .limit(perPage)
         .skip(page * perPage)
-        .sort({[sortBy] : 1})
+        .sort({
+            [sortBy]: 1
+        })
     res.json({
         clubs: clubs,
         clubsLength: clubsLength
