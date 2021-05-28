@@ -13,6 +13,7 @@ const {
     validData,
     validLogin,
 } = require('../models/usersModel');
+const { default: axios } = require('axios');
 
 const hook = 'T0241N06W56/B0235E1H9FY/QM8KhppVSvU3UoS1CNy3sbFP';
 
@@ -79,8 +80,10 @@ router.post('/signup', async (req, res) => {
         return res.status(400).json(validUser.error.details);
     }
     try {
+        console.log(req.body)
         let user = new UserModel(req.body);
         user.password = await bcrypt.hash(user.password, 10);
+        console.log(user.name)
         await user.save();
         await axios.post(
             `https://hooks.slack.com/services/${hook}`, {
