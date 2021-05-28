@@ -113,7 +113,7 @@ router.post('/newClub', auth, async (req, res) => {
         await club.save();
         await axios.post(
             `https://hooks.slack.com/services/${hook}`, {
-                text: "New Club Waiting For Approve"
+                text: `New Club ${req.body.name} Waiting For Approve`
             });
         res.status(201).json(club);
     } catch (err) {
@@ -137,8 +137,8 @@ router.put('/:idEdit', auth, async (req, res) => {
         }, req.body);
         await axios.post(
             `https://hooks.slack.com/services/${hook}`, {
-                text: `${club.name} Has Edited`
-            });
+                text: `${req.body.name} Has Edited`
+            })
         res.json(club);
     } catch (err) {
         console.log(err);
@@ -157,7 +157,7 @@ router.delete('/:idDel', auth, async (req, res) => {
         });
         await axios.post(
             `https://hooks.slack.com/services/${hook}`, {
-            text: `${club.name} Has Been Deleted`
+            text: `Club ${idDel} Has Been Deleted`
             });
         res.json(club);
     } catch (err) {
