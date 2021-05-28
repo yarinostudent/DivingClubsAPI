@@ -59,7 +59,7 @@ router.get('/info', async (req, res) => {
         ]
         });
     } else {
-        clubsLength = await ClubModel.countDocuments({});
+        clubsLength = await ClubModel.countDocuments({visible:true});
     }
     let clubs = await ClubModel.find({
         $and:[
