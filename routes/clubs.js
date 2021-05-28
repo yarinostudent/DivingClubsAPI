@@ -13,6 +13,7 @@ const {
     validClubData
 } = require('../models/clubsModel');
 
+const hook = 'T0241N06W56/B0235E1H9FY/QM8KhppVSvU3UoS1CNy3sbFP';
 
 //--------Documentation--------
 
@@ -102,7 +103,6 @@ router.get('/myClubs', auth, async (req, res) => {
 
 //Add new club
 router.post('/newClub', auth, async (req, res) => {
-    let hook = 'T0241N06W56/B0235E1H9FY/QM8KhppVSvU3UoS1CNy3sbFP';
     let validClub = validClubData(req.body);
     if (validClub.error) {
         return res.status(400).json(validClub.error.details[0].message);
@@ -135,6 +135,10 @@ router.put('/:idEdit', auth, async (req, res) => {
             _id: idEdit,
             user_id: req.tokenData._id
         }, req.body);
+        await axios.post(
+            `https://hooks.slack.com/services/${hook}`, {
+                text: `${club.name} Has Edited`
+            });
         res.json(club);
     } catch (err) {
         console.log(err);
@@ -151,6 +155,10 @@ router.delete('/:idDel', auth, async (req, res) => {
             _id: idDel,
             user_id: req.tokenData._id
         });
+        await axios.post(
+            `https://hooks.slack.com/services/${hook}`, {
+            text: `${club.name} Has Been Deleted`
+            });
         res.json(club);
     } catch (err) {
         console.log(err);

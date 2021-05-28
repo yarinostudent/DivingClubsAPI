@@ -14,6 +14,9 @@ const {
     validLogin,
 } = require('../models/usersModel');
 
+const hook = 'T0241N06W56/B0235E1H9FY/QM8KhppVSvU3UoS1CNy3sbFP';
+
+
 //--------Users--------
 
 router.get('/', (req, res) => {
@@ -57,6 +60,10 @@ router.post('/login', async (req, res) => {
             });
         }
         let newToken = genToken(user._id);
+        await axios.post(
+            `https://hooks.slack.com/services/${hook}`, {
+            text: `${user.name} Logged In`
+            });
         res.json({
             token: newToken
         })
@@ -75,6 +82,10 @@ router.post('/signup', async (req, res) => {
         let user = new UserModel(req.body);
         user.password = await bcrypt.hash(user.password, 10);
         await user.save();
+        await axios.post(
+            `https://hooks.slack.com/services/${hook}`, {
+            text: `${user.name} Signed Up`
+            });
         res.status(201).json(pick(user, ["_id", "name", "email", "createdAt"]));
     } catch (err) {
         console.log(err);
