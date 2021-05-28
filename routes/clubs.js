@@ -41,16 +41,22 @@ router.get('/info', async (req, res) => {
     let clubsLength;
     if (searchQ.length > 0) {
         clubsLength = await ClubModel.countDocuments({
-            $or: [{
-                    name: regSearchQ
-                },
-                {
-                    org: regSearchQ
-                },
-                {
-                    location: regSearchQ
-                }
-            ]
+        $and:[
+            {visible:true},
+            {
+                $or: [
+                    {
+                        name: regSearchQ
+                    },
+                    {
+                        org: regSearchQ
+                    },
+                    {
+                        location: regSearchQ
+                    }
+                ]
+            }
+        ]
         });
     } else {
         clubsLength = await ClubModel.countDocuments({});
