@@ -111,8 +111,8 @@ router.post('/newClub', auth, async (req, res) => {
         club.user_id = req.tokenData._id;
         await club.save();
         await axios.post(
-            "https://hooks.slack.com/services/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", {
-                DivingClubBot: "New Club Waiting For Approve"
+            "https://hooks.slack.com/services/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", {
+                text: "New Club Waiting For Approve"
             });
         res.status(201).json(club);
     } catch (err) {
