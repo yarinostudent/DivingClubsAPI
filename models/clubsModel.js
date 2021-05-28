@@ -14,6 +14,7 @@ const clubSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    visible:Boolean,
     user_id: String
 })
 

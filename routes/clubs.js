@@ -56,16 +56,22 @@ router.get('/info', async (req, res) => {
         clubsLength = await ClubModel.countDocuments({});
     }
     let clubs = await ClubModel.find({
-            $or: [{
-                    name: regSearchQ
-                },
-                {
-                    org: regSearchQ
-                },
-                {
-                    location: regSearchQ
-                }
-            ]
+        $and:[
+            {visible:true},
+            {
+                $or: [
+                    {
+                        name: regSearchQ
+                    },
+                    {
+                        org: regSearchQ
+                    },
+                    {
+                        location: regSearchQ
+                    }
+                ]
+            }
+        ]
         })
         .limit(perPage)
         .skip(page * perPage)
@@ -109,6 +115,7 @@ router.post('/newClub', auth, async (req, res) => {
     }
     try {
         let club = new ClubModel(req.body);
+        club.visible = false;
         club.user_id = req.tokenData._id;
         await club.save();
         await axios.post(
