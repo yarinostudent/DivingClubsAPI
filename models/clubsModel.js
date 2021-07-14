@@ -14,7 +14,7 @@ const clubSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    visible:Boolean,
+    visible: Boolean,
     user_id: String
 })
 
@@ -27,9 +27,9 @@ exports.validClubData = (_bodyData) => {
         logo_url: Joi.string().min(2).max(999).required(),
         org: Joi.string().min(2).max(99).required(),
         location: Joi.string().min(2).max(99).required(),
-        insta_url: Joi.string().optional().allow('').min(2).max(999),
-        face_url: Joi.string().optional().allow('').min(2).max(999),
-        trip_url: Joi.string().optional().allow('').min(2).max(999)
+        insta_url: Joi.string().optional().allow(null, '').min(2).max(999),
+        face_url: Joi.string().optional().allow(null, '').min(2).max(999),
+        trip_url: Joi.string().optional().allow(null, '').min(2).max(999)
     })
     return schemaJoi.validate(_bodyData);
 }
