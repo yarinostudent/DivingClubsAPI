@@ -24,7 +24,7 @@ exports.validClubData = (_bodyData) => {
     let schemaJoi = Joi.object({
         name: Joi.string().min(2).max(20).required(),
         phone: Joi.string().min(8).max(25).required(),
-        logo_url: Joi.string().min(2).max(999).required(),
+        logo_url: Joi.string().min(2).max(999).optional().allow(null, ''),
         org: Joi.string().min(2).max(99).required(),
         location: Joi.string().min(2).max(99).required(),
         insta_url: Joi.string().optional().allow(null, '').min(2).max(999),
