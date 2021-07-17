@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
 //Info
 router.get('/info', async (req, res) => {
     let page = req.query.page ? Number(req.query.page) : 0;
-    let perPage = req.query.perPage ? Number(req.query.perPage) : 4;
+    let perPage = req.query.perPage ? Number(req.query.perPage) : 6;
     let searchQ = req.query.s ? req.query.s : "";
     let sortBy = req.query.sort ? req.query.sort : "name";
     let regSearchQ = RegExp(searchQ, "i");
